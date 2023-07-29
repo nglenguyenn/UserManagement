@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using UserManagement.Api.Services;
 using UserManagement.Data.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddTransient<IAuthService, AuthService>();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -57,6 +59,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 
